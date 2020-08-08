@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+
+    
+    <section class="event-form-section event-form-section--image">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="event-form-box">
+                        <h2 class="heading">Find an <span class="accent">Event</span> to
+                            <span class="accent">Volunteer</span>
+                        </h2>
+                        <form id="event-main-form" method="get" action="{% url 'events:searh' %}" class="event-main-form">
+                            <div class="controls">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="profession">Event</label>
+                                            <input type="text" id="profession" name="position"
+                                                   placeholder="Event you are looking for" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Location</label>
+                                            <input type="text" id="location" name="location"
+                                                   placeholder="Any particular location?" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit"
+                                                class="btn btn-outline-white-primary event-main-form__button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-light-gray">
+        <div class="container">
+            <h3 class="heading">Featured events</h3>
+            <div class="row featured align-items-stretch">
+                {% for event in events %}
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="box-image-text bg-visible full-height">
+                            <div class="top">
+                                <a href="{% url 'events:events-detail' event.id %}">
+                                    <div class="image">
+                                        <img src="{% static 'img/featured1.jpg' %}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="logo">
+                                        <img src="{% static 'img/company-1.png' %}" alt="" style="max-width: 80px;">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h5><a href="{% url 'events:events-detail' event.id %}">{{ event.title }}</a></h5>
+                                <p class="featured__details"><i class="fa fa-map-marker event__location"></i>
+                                    {{ event.location }}
+                                <p>{{ event.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
